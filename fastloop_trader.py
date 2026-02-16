@@ -682,8 +682,8 @@ def run_fast_market_strategy(dry_run=True, positions_only=False, show_config=Fal
     log(f"  ✅ Signal: {side.upper()} — {trade_rationale}{vol_note}", force=True)
     log(f"  Divergence: {divergence:.3f}", force=True)
 
-    # Step 5: Import & Trade
-     log(f"\n🔗 Importing to Simmer...", force=True)
+      # Step 5: Import & Trade
+    log(f"\n🔗 Importing to Simmer...", force=True)
 
     market_id, import_error = None, None
     for _ in range(3):
@@ -697,8 +697,6 @@ def run_fast_market_strategy(dry_run=True, positions_only=False, show_config=Fal
         continue
 
     log(f" ✅ Market ID: {market_id[:16]}...", force=True)
-
-    log(f"  ✅ Market ID: {market_id[:16]}...", force=True)
 
     if dry_run:
         est_shares = position_size / price if price > 0 else 0
