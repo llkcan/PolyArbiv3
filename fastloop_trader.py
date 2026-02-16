@@ -749,35 +749,32 @@ def run_fast_market_strategy(dry_run=True, positions_only=False, show_config=Fal
 # =============================================================================
 
 if __name__ == "__main__":
-while True:
-    try:
-        run_fast_market_strategy(
-            dry_run=dry_run,
-            positions_only=args.positions,
-            show_config=args.config,
-            smart_sizing=args.smart_sizing,
-            quiet=args.quiet,
-        )
-    except Exception as e:
-        print(f"Loop error: {e}", flush=True)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--live", action="store_true")
+    parser.add_argument("--positions", action="store_true")
+    parser.add_argument("--config", action="store_true")
+    parser.add_argument("--smart-sizing", action="store_true")
+    parser.add_argument("--quiet", action="store_true")
 
-    time.sleep(15)
-
-
-    parser = argparse.ArgumentParser(description="Simmer FastLoop Trading Skill")
-    parser.add_argument("--live", action="store_true", help="Execute real trades (default is dry-run)")
-    parser.add_argument("--dry-run", action="store_true", help="(Default) Show opportunities without trading")
-    parser.add_argument("--positions", action="store_true", help="Show current fast market positions")
-    parser.add_argument("--config", action="store_true", help="Show current config")
-    parser.add_argument("--set", action="append", metavar="KEY=VALUE",
-                        help="Update config (e.g., --set entry_threshold=0.08)")
-    parser.add_argument("--smart-sizing", action="store_true", help="Use portfolio-based position sizing")
-    parser.add_argument("--quiet", "-q", action="store_true",
-                        help="Only output on trades/errors (ideal for high-frequency runs)")
     args = parser.parse_args()
-    parser.add_argument("--loop", action="store_true", help="Run continuously")
-    parser.add_argument("--interval", type=int, default=15, help="Seconds between cycles in loop mode")
-    parser.add_argument("--until-trade", action="store_true", help="Stop after first successful trade")
+
+    dry_run = not args.live
+
+    while True:
+        try:
+            run_fast_market_strategy(
+                dry_run=dry_run,
+                positions_only=args.positions,
+                show_config=args.config,
+                smart_sizing=args.smart_sizing,
+                quiet=args.quiet,
+            )
+        except Exception as e:
+            print(f"Loop error: {e}", flush=True)
+
+        time.sleep(15)
+
 
 
     if args.set:
