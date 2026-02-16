@@ -792,8 +792,6 @@ if __name__ == "__main__":
 
     dry_run = not args.live
 
-   import time 
-
 def run_once():
     return run_fast_market_strategy(
         dry_run=dry_run,
