@@ -684,12 +684,8 @@ def run_fast_market_strategy(dry_run=True, positions_only=False, show_config=Fal
 
     # Step 5: Import & Trade
     log(f"\n🔗 Importing to Simmer...", force=True)
-    market_id, import_error = None, None
-for _ in range(3):
-    market_id, import_error = import_fast_market_market(api_key, best["slug"])
-    if market_id:
-        break
-    time.sleep(2)
+   market_id, import_error = import_fast_market_market(api_key, best["slug"])
+
 
 
     if not market_id:
