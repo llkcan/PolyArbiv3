@@ -683,21 +683,20 @@ def run_fast_market_strategy(dry_run=True, positions_only=False, show_config=Fal
     log(f"  Divergence: {divergence:.3f}", force=True)
 
     # Step 5: Import & Trade
-    log(f"\n🔗 Importing to Simmer...", force=True)
-  market_id, import_error = None, None
-for _ in range(3):
-    market_id, import_error = import_fast_market_market(api_key, best["slug"])
-    if market_id:
-        break
-    time.sleep(2)
+     log(f"\n🔗 Importing to Simmer...", force=True)
 
-
-
+    market_id, import_error = None, None
+    for _ in range(3):
+        market_id, import_error = import_fast_market_market(api_key, best["slug"])
+        if market_id:
+            break
+        time.sleep(2)
 
     if not market_id:
-    log(f" ❌ Import failed: {import_error}", force=True)
-    continue
+        log(f" ❌ Import failed: {import_error}", force=True)
+        continue
 
+    log(f" ✅ Market ID: {market_id[:16]}...", force=True)
 
     log(f"  ✅ Market ID: {market_id[:16]}...", force=True)
 
