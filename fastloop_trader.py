@@ -487,13 +487,14 @@ def calculate_position_size(api_key, max_size, smart_sizing=False):
 # =============================================================================
 
 def run_fast_market_strategy(dry_run=True, positions_only=False, show_config=False,
-                        smart_sizing=False, quiet=False):
-        """Run one cycle. Returns True if a trade executed successfully, else False."""
+                             smart_sizing=False, quiet=False):
+    """Run one cycle of the fast_market trading strategy."""
 
     def log(msg, force=False):
         """Print unless quiet mode is on. force=True always prints."""
         if not quiet or force:
             print(msg)
+
 
     log("⚡ Simmer FastLoop Trading Skill")
     log("=" * 50)
