@@ -694,7 +694,7 @@ def run_fast_market_strategy(dry_run=True, positions_only=False, show_config=Fal
 
     if not market_id:
         log(f" ❌ Import failed: {import_error}", force=True)
-        continue
+        return
 
     log(f" ✅ Market ID: {market_id[:16]}...", force=True)
 
