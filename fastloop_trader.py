@@ -749,7 +749,6 @@ def run_fast_market_strategy(dry_run=True, positions_only=False, show_config=Fal
 # =============================================================================
 
 if __name__ == "__main__":
-if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--live", action="store_true")
     parser.add_argument("--positions", action="store_true")
