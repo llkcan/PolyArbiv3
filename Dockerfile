@@ -8,4 +8,5 @@ RUN pip install --no-cache-dir requests
 
 ENV PYTHONUNBUFFERED=1
 
-CMD ["python", "fastloop_trader.py", "--live", "--loop", "--interval", "15", "--quiet"]
+CMD ["python", "fastloop_trader.py", "--live"]
+
