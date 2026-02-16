@@ -488,7 +488,7 @@ def calculate_position_size(api_key, max_size, smart_sizing=False):
 
 def run_fast_market_strategy(dry_run=True, positions_only=False, show_config=False,
                         smart_sizing=False, quiet=False):
-    """Run one cycle of the fast_market trading strategy."""
+        """Run one cycle. Returns True if a trade executed successfully, else False."""
 
     def log(msg, force=False):
         """Print unless quiet mode is on. force=True always prints."""
@@ -758,6 +758,10 @@ if __name__ == "__main__":
     parser.add_argument("--quiet", "-q", action="store_true",
                         help="Only output on trades/errors (ideal for high-frequency runs)")
     args = parser.parse_args()
+    parser.add_argument("--loop", action="store_true", help="Run continuously")
+    parser.add_argument("--interval", type=int, default=15, help="Seconds between cycles in loop mode")
+    parser.add_argument("--until-trade", action="store_true", help="Stop after first successful trade")
+
 
     if args.set:
         updates = {}
@@ -786,10 +790,22 @@ if __name__ == "__main__":
 
     dry_run = not args.live
 
-    run_fast_market_strategy(
+   import time 
+
+def run_once():
+    return run_fast_market_strategy(
         dry_run=dry_run,
         positions_only=args.positions,
         show_config=args.config,
         smart_sizing=args.smart_sizing,
         quiet=args.quiet,
     )
+
+if args.loop:
+    while True:
+        traded = run_once()
+        if traded and args.until_trade:
+            break
+        time.sleep(args.interval)
+else:
+    run_once()
