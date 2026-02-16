@@ -749,6 +749,20 @@ def run_fast_market_strategy(dry_run=True, positions_only=False, show_config=Fal
 # =============================================================================
 
 if __name__ == "__main__":
+        while True:
+        try:
+            run_fast_market_strategy(
+                dry_run=dry_run,
+                positions_only=args.positions,
+                show_config=args.config,
+                smart_sizing=args.smart_sizing,
+                quiet=args.quiet,
+            )
+        except Exception as e:
+            print(f"Loop error: {e}", flush=True)
+
+        time.sleep(15)
+
     parser = argparse.ArgumentParser(description="Simmer FastLoop Trading Skill")
     parser.add_argument("--live", action="store_true", help="Execute real trades (default is dry-run)")
     parser.add_argument("--dry-run", action="store_true", help="(Default) Show opportunities without trading")
